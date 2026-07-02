@@ -20,9 +20,9 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 echo "==> 下載 $MODEL_REPO"
 echo "==> 存到 $LOCAL_DIR"
 
+# 此 repo 全為 safetensors (15 shards, ~56GB),無 original/ 或 .pth,故不需 --exclude。
 hf download "$MODEL_REPO" \
-    --local-dir "$LOCAL_DIR" \
-    --exclude "*.pth" "original/*"   # 跳過非必要的原始權重,只留 safetensors
+    --local-dir "$LOCAL_DIR"
 
 echo ""
 echo "==> 下載完成。模型路徑:"
