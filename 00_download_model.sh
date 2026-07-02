@@ -20,7 +20,7 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 echo "==> 下載 $MODEL_REPO"
 echo "==> 存到 $LOCAL_DIR"
 
-huggingface-cli download "$MODEL_REPO" \
+hf download "$MODEL_REPO" \
     --local-dir "$LOCAL_DIR" \
     --exclude "*.pth" "original/*"   # 跳過非必要的原始權重,只留 safetensors
 
