@@ -14,8 +14,8 @@ LOCAL_DIR="${2:-./models/$(basename "$MODEL_REPO")}"
 # 開啟高速下載(需要 hf_transfer)
 export HF_HUB_ENABLE_HF_TRANSFER=1
 
-# 如果是 gated / 私有模型,先登入(會提示貼上 token):
-#   huggingface-cli login
+# 如果是 gated / 私有模型,先登入(新版 CLI 用 hf auth login):
+#   hf auth login
 
 echo "==> 下載 $MODEL_REPO"
 echo "==> 存到 $LOCAL_DIR"
