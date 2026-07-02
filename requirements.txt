@@ -7,6 +7,6 @@ tqdm
 aiohttp
 httpx
 openai
-# --- 下載模型用 ---
-huggingface_hub[cli]
+# --- 下載模型用 (新版 CLI 指令為 hf, 舊的 huggingface-cli 已淘汰) ---
+huggingface_hub[cli]>=0.34.0
 hf_transfer
