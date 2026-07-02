@@ -6,3 +6,7 @@ pandas
 tqdm
 aiohttp
 httpx
+openai
+# --- 下載模型用 ---
+huggingface_hub[cli]
+hf_transfer
