@@ -1,1 +1,1 @@
-print("python 03_context_length_test.py --model qwen3.6-27b")
+print("python 04_interactive_chat.py --model qwen3.6-27b")
