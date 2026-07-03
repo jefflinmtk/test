@@ -1,4 +1,3 @@
-print("vllm serve ./models/Qwen3.6-27B \
-    --served-model-name qwen3.6-27b \
-    --host 0.0.0.0 --port 8000 \
-    --max-model-len 8192")
+print("
+    python 01_token_throughput_test.py --model qwen3.6-27b
+)
