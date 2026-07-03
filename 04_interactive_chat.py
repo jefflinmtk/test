@@ -8,6 +8,8 @@
 指令 (在提示符後輸入):
     /reset   清空對話歷史,重新開始
     /exit    離開 (或按 Ctrl+C)
+
+思考模式 (thinking) 預設關閉;加 --think 開啟。
 """
 
 import time
@@ -20,7 +22,7 @@ DEFAULT_MODEL    = "Qwen/Qwen3.6-27B"
 SYSTEM_PROMPT = "You are a helpful assistant."
 
 
-def stream_reply(client, model, messages, max_tokens, temperature):
+def stream_reply(client, model, messages, max_tokens, temperature, enable_thinking):
     """送出對話,streaming 印出回應,回傳 (完整回應字串, 統計資料)。"""
     t0 = time.perf_counter()
     first_token_time = None
@@ -33,6 +35,8 @@ def stream_reply(client, model, messages, max_tokens, temperature):
         max_tokens=max_tokens,
         temperature=temperature,
         stream=True,
+        # Qwen3 系列用 chat_template_kwargs 的 enable_thinking 控制思考模式
+        extra_body={"chat_template_kwargs": {"enable_thinking": enable_thinking}},
     )
 
     print("\n\033[92mQwen:\033[0m ", end="", flush=True)
@@ -60,6 +64,8 @@ def main():
     parser.add_argument("--max-tokens",  type=int,   default=1024)
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--no-stats",    action="store_true", help="不顯示速度統計")
+    parser.add_argument("--think",       action="store_true",
+                        help="開啟思考模式 (預設關閉)")
     args = parser.parse_args()
 
     client = OpenAI(api_key="EMPTY", base_url=args.base_url)
@@ -67,6 +73,7 @@ def main():
     print("=" * 60)
     print(f"  即時對話 — {args.model}")
     print(f"  server : {args.base_url}")
+    print(f"  思考模式: {'開啟' if args.think else '關閉'}")
     print("  指令   : /reset 清空歷史 | /exit 離開 (或 Ctrl+C)")
     print("=" * 60)
 
@@ -94,7 +101,7 @@ def main():
         try:
             reply, stats = stream_reply(
                 client, args.model, messages,
-                args.max_tokens, args.temperature,
+                args.max_tokens, args.temperature, args.think,
             )
         except Exception as e:
             print(f"\n\033[91m[錯誤]\033[0m {e}")
