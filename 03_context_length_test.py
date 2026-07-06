@@ -56,9 +56,9 @@ def main():
     parser.add_argument("--base-url",   default=DEFAULT_BASE_URL)
     parser.add_argument("--model",      default=DEFAULT_MODEL)
     parser.add_argument("--max-tokens", type=int, default=128)
-    # word counts: approx 512 / 1K / 2K / 4K / 8K tokens
+    # word counts: approx 512 / 1K / 2K / 4K / 8K / 16k / 32K / 64K/ 128K /256K tokens
     parser.add_argument("--word-counts", nargs="+", type=int,
-                        default=[384, 768, 1536, 3072, 6144])
+                        default=[384, 768, 1536, 3072, 6144, 6144*2, 6144*4, 6144*8, 6144*16, 6144*32])
     args = parser.parse_args()
 
     client = OpenAI(api_key="EMPTY", base_url=args.base_url)
